@@ -16,18 +16,19 @@
  	 left: 0;
   	 bottom: 0;
  	 width: 100%;
-	 background-color:rgba(164, 191, 255);
+	 background-color:rgb(255,127,80);
  	 color: white;
  	 text-align: center;
 }
 </style>
 </head>
 <body style="padding: 0; margin: 0; height: 2px;">
-<nav class="navbar navbar-expand-sm" style=" background-color:rgba(164, 191, 255);">
+<nav class="navbar navbar-expand-sm" style=" background-color:rgb(255,127,80);">
 <div class="container-fluid">
 	 <div class="navbar-header">
-		<a class="navbar-brand" href="#"><strong style="color:rgb(254, 64, 118);font-size:40px;">X-WORKZ</strong></a>
-	</div>	</div>
+		<a class="navbar-brand" href="#"><strong style="color:rgb(25,25,112);font-size:40px;">X-WORKZ</strong></a>
+	</div>	
+	</div>
 </nav>
 	<form action="event" method="get">
 		<div class="container-fluid mt-5">
@@ -52,7 +53,7 @@
 	</form>
 <div class="footer-copyright py-3 text-center">
 	<div class="footer-bottom-text" style="color:black">
-			© 2020 Copyright: <a href="#"> <strong style="color:rgb(254, 64, 118);">X-WORKZ.com </strong></a>
+			© 2020 Copyright: <a href="#"> <strong style="color:rgb(25,25,112);">X-WORKZ.com </strong></a>
 	</div>
 </div>
 </body>
