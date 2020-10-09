@@ -6,10 +6,15 @@
   <title>SpringBoot-Task</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+  
+  <link rel="stylesheet" 
+  						href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" />
+  <script 
+  			src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script 
+  			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+  <script 
+  			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 <style>
 .footer-bottom-text {
 	position: fixed;
@@ -26,7 +31,10 @@
 <nav class="navbar navbar-expand-sm" style=" background-color:rgb(255,127,80);">
 <div class="container-fluid">
 	 <div class="navbar-header">
-		<a class="navbar-brand" href="#"><strong style="color:rgb(25,25,112);font-size:40px;">X-WORKZ</strong></a>
+		<a class="navbar-brand" href="#"><strong style="color:rgb(25,25,112);font-size:20px;">X-WORKZ</strong></a>
+		<a href="login">Login</a>
+		
+		
 	</div>	
 	</div>
 </nav>
@@ -50,6 +58,7 @@
 			</div>
 			</div>
 		</div>
+		
 	</form>
 <div class="footer-copyright py-3 text-center">
 	<div class="footer-bottom-text" style="color:black">

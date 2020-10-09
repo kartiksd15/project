@@ -26,15 +26,18 @@
 <nav class="navbar navbar-expand-sm" style=" background-color:rgb(255,127,80);">
 <div class="container-fluid">
 	 <div class="navbar-header">
-		<a class="navbar-brand" href="#"><strong style="color:rgb(25,25,112);font-size:40px;">X-WORKZ</strong></a>
-	</div>	</div>
+		<a class="navbar-brand" href="#"><strong style="color:rgb(25,25,112);font-size:20px;">X-WORKZ</strong></a>
+	</div>	
+	</div>
 </nav>
-<h2 style="text-align: center;">Id:
-		<i>${id}</i></h2>
-	<h2 style="text-align: center;">From :
-		<i>${name1}</i></h2>
+<h2 style="text-align: center;">User-Id:
+		<i>${object.id}</i></h2>
+	<h2 style="text-align: center;">Message From :
+		<i>${object.name}</i></h2>
 	<h2 style="text-align: center;">Your Message is:
-		<i>${message1}</i></h2>
+		<i>${object.message}</i></h2>
+		
+		
 <div class="footer-copyright py-3 text-center">
 	<div class="footer-bottom-text" style="color:black">
 			© 2020 Copyright: <a href="#"> <strong style="color:rgb(25,25,112);">X-WORKZ.com </strong></a>
