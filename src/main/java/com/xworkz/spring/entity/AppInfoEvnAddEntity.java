@@ -2,6 +2,8 @@ package com.xworkz.spring.entity;
 
 
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,27 +13,37 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.slf4j.LoggerFactory;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Entity
-@Table(name="Env_Table")
-public class AppInfoEvnAddEntity {
+@Table(name="ENIRONMENT_TABLE")
+public class AppInfoEvnAddEntity implements Serializable{
 	
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(AppInfoEvnAddEntity.class);
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(AppInfoEvnAddEntity.class);
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
-	@Column(name = "E_ID")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GenericGenerator(name="auto",strategy = "increment")
+	@GeneratedValue(generator = "auto")
+	@Column(name = "Env_ID")
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int eid;
-	@Column(name = "ENV")
+	@Column(name = "ENV_name")
 	private String env;
 	@Column(name = "URL")
 	private String url;
+	
 	@ManyToOne
-	@JoinColumn(name = "ENV_ID")
+	@JoinColumn(name = "Proj_Id")
 	private AppInfoEntity appInfoEntity;
 
 	public AppInfoEvnAddEntity() {
-		LOGGER.info("created AppInfoEvnAddEntity."+this.getClass().getSimpleName());
+		log.info("created AppInfoEvnAddEntity."+this.getClass().getSimpleName());
 	}
 
 	public int getEid() {

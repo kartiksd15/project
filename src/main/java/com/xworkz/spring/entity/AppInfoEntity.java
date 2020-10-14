@@ -13,17 +13,24 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.slf4j.LoggerFactory;
 
 import com.xworkz.spring.dto.AppInfoDTO;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 @Entity
 @Table(name="AppInfo_Table")
+@Data
+@AllArgsConstructor
 public class AppInfoEntity implements Serializable{
 	
 	@Id
-	@Column(name= "Id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GenericGenerator(name="auto",strategy = "increment")
+	@GeneratedValue(generator = "auto")
+	@Column(name="Proj_Id")
 	private Integer id;
 	@Column(name="Proj_Name")
 	private String projectName;
@@ -42,14 +49,16 @@ public class AppInfoEntity implements Serializable{
 	@Column(name="Dev_Date")
 	private Date developDate;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "appInfoEntity")
+	@OneToMany( mappedBy = "appInfoEntity",cascade=CascadeType.ALL)
 	private List<AppInfoEvnAddEntity> appInfoEnvAddEntity;
 	
 	
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(AppInfoDTO.class);
+	private static final long serialVersionUID = 1L;
+	
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(AppInfoEntity.class);
 	
 	public AppInfoEntity() {
-		LOGGER.info("created AppInfoEntity..."+this.getClass().getSimpleName());
+		log.info("created AppInfoEntity..."+this.getClass().getSimpleName());
 	}
 
 	public Integer getId() {
@@ -131,10 +140,5 @@ public class AppInfoEntity implements Serializable{
 	public void setAppInfoEnvAddEntity(List<AppInfoEvnAddEntity> appInfoEnvAddEntity) {
 		this.appInfoEnvAddEntity = appInfoEnvAddEntity;
 	}
-	
-
-
-	
-
 	
 }

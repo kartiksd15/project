@@ -1,21 +1,30 @@
 package com.xworkz.spring.controller;
 
  
+import java.beans.PropertyEditor;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.xworkz.spring.dto.AppInfoDTO;
+import com.xworkz.spring.dto.EnvDTO;
 import com.xworkz.spring.dto.HomeDTO;
+import com.xworkz.spring.entity.AppInfoEntity;
 import com.xworkz.spring.service.AppInfoService;
 import com.xworkz.spring.service.ServiceMessage;
 
@@ -25,25 +34,32 @@ import com.xworkz.spring.service.ServiceMessage;
 public class HomeController {
 	
 	
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(HomeController.class);
 	
 	@Autowired
 	private ServiceMessage serviceMessage;
+	
 	@Autowired
 	private AppInfoService appInfoService;
-	private List<AppInfoDTO> list =new ArrayList<AppInfoDTO>();
+	
+	private List<EnvDTO> envlist =new ArrayList<EnvDTO>();
 
 	public HomeController() {
-		LOGGER.info(" Created..."+this.getClass().getSimpleName() );
+		log.info(" Created..."+this.getClass().getSimpleName() );
 	}
 	
 
 	@RequestMapping("index")
 	public String onLanding() {
-		LOGGER.info("Hello welcome to Home Page... ");
+		log.info("Hello welcome to Home Page... ");
 		return "index";
 	}
 	
+	
+	@InitBinder
+	public void init(WebDataBinder binder) {
+		binder.registerCustomEditor(Date.class, (PropertyEditor) new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
+	}
 	
 
 //	@RequestMapping("event")
@@ -85,29 +101,29 @@ public class HomeController {
 	
 	@RequestMapping("event")
 	public ModelAndView addMessage(HomeDTO homeDto, Model model) {
-		LOGGER.info("invoking addMessage() of " + this.getClass().getSimpleName());
+		log.info("invoking addMessage() of " + this.getClass().getSimpleName());
 		ModelAndView modelAndView = new ModelAndView();
 		try {
 			boolean check = this.serviceMessage.validAndSave(homeDto, model);
 			if (check == true) {
-				LOGGER.info("Check is " + check);
-				LOGGER.info("Data Saved in DataBaseTable");
+				log.info("Check is " + check);
+				log.info("Data Saved in DataBaseTable");
 				modelAndView.addObject("object", homeDto);
 				modelAndView.setViewName("home");
 				return modelAndView;
 			} else {
-				LOGGER.error("Data is not Saved in DB");
+				log.error("Data is not Saved in DB");
 				modelAndView.setViewName("index");
 				return modelAndView;
 			}
 		} catch (Exception e) {
-			LOGGER.error("Exception in Controller" + e.getMessage());
+			log.error("Exception in Controller" + e.getMessage());
 		}
 		return modelAndView;
 	}
 	
 	
-	//module-1
+	
 /*	
 	@RequestMapping(value = "/sendApp", method = RequestMethod.POST)
 	public String getModalData(AppInfoDTO appInfoDTO, Model model) {
@@ -121,23 +137,69 @@ public class HomeController {
 	}*/
 
 	
-	@RequestMapping(value = "/sendlogin", method = RequestMethod.POST)
-	public String addAppInfoDetails(AppInfoDTO appInfoDTO, Model model) {
-		LOGGER.info("invoked addAppInfoDetails method");
-		appInfoService.create(appInfoDTO, list);
+	//module-1
+	
+//	@RequestMapping(value = "/sendlogin", method = RequestMethod.POST)
+//	public String addAppInfoDetails(AppInfoDTO appInfoDTO, Model model) {
+//		log.info("invoked addAppInfoDetails method");
+//		appInfoService.create(appInfoDTO, list);
+//		return "Login";
+//	}
+	
+//	@RequestMapping(value = "/sendlogin", method = RequestMethod.POST)
+	
+	@PostMapping("/login")
+	public String addApp(AppInfoDTO appInfoDTO,Model model) {
+		try {
+		log.info("adding application ");
+		String check=null;
+		log.info("dto is"+appInfoDTO);
+		check= appInfoService.save(appInfoDTO,envlist);
+		envlist.removeAll(envlist);
+		System.out.println("list is:"+envlist);
+		log.info("status is "+check);
+		model.addAttribute("status", check);
+		
+		
+	}catch(Exception e) {
+		log.error("error is appinfopage"+this.getClass().getSimpleName());
+	}
+		
 		return "Login";
+		
 	}
 	
-	@RequestMapping(value = "sendApp", method = RequestMethod.POST)
-	public ResponseEntity<Object> getModalData(@RequestBody AppInfoDTO appInfoDTO) {
-		 
-		list.add(appInfoDTO);
-
-		System.out.println(list);
+	
+//	@RequestMapping(value = "sendApp", method = RequestMethod.POST)
+	@PostMapping("addEnv")
+	public ResponseEntity<Object> getModalData(@RequestBody EnvDTO envDTO){
+		
+		log.info("invoked"+this.getClass().getSimpleName());
+		log.info("env name:"+envDTO.getEnv());
+		log.info("url name:"+envDTO.getUrl());
+		envlist.add(envDTO);
+//		envlist=list;
+		envlist.forEach(p->System.out.print(p));
 		
 		return ResponseEntity.ok().body("Success");
-
+		
 	}
+	
+	
+	
+//	@RequestMapping(value = "sendApp", method = RequestMethod.POST)
+//	public ResponseEntity<Object> getModalData(@RequestBody AppInfoDTO appInfoDTO) {
+//		 
+//		list.add(appInfoDTO);
+//
+//		System.out.println(list);
+//		
+//		return ResponseEntity.ok().body("Success");
+//
+//	}
+	
+	
+	
 	
 	@RequestMapping(value="/login")
 	public String call() {

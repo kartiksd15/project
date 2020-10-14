@@ -16,8 +16,8 @@ public class AppInfoDTO  implements Serializable{
 	private Date nextRelease;
 	private String deComm;
 	private Date developDate;
-	private String env;
-	private String url;
+//	private String env;
+//	private String url;
 	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(AppInfoDTO.class);
 	
@@ -73,17 +73,24 @@ public class AppInfoDTO  implements Serializable{
 	public void setDevelopDate(Date developDate) {
 		this.developDate = developDate;
 	}
-	public String getEnv() {
-		return env;
-	}
-	public void setEnv(String env) {
-		this.env = env;
-	}
-	public String getUrl() {
-		return url;
-	}
-	public void setUrl(String url) {
-		this.url = url;
+//	public String getEnv() {
+//		return env;
+//	}
+//	public void setEnv(String env) {
+//		this.env = env;
+//	}
+//	public String getUrl() {
+//		return url;
+//	}
+//	public void setUrl(String url) {
+//		this.url = url;
+//	}
+
+	@Override
+	public String toString() {
+		return "AppInfoDTO [projectName=" + projectName + ", version=" + version + ", teamManager=" + teamManager
+				+ ", email=" + email + ", lastRelease=" + lastRelease + ", nextRelease=" + nextRelease + ", deComm="
+				+ deComm + ", developDate=" + developDate + "]";
 	}
 
 }
